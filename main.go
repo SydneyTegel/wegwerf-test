@@ -1,9 +1,10 @@
-// Package main is the entry point of wegwerf-test.
+// Package main ist der Einstiegspunkt von wegwerf-test.
 package main
 
 import (
 	"errors"
 	"fmt"
+	"math"
 	"regexp"
 	"strconv"
 	"strings"
@@ -72,7 +73,22 @@ func ParseDuration(s string) (int64, error) {
 			mult = 1
 		}
 
-		total += num * mult
+		// Überlauf-Prüfung für Multiplikation
+		if mult != 0 && num > math.MaxInt64/mult {
+			return 0, fmt.Errorf("Überlauf: %d%c zu groß", num, unit)
+		}
+		product := num * mult
+
+		// Überlauf-Prüfung für Addition
+		if math.MaxInt64-total < product {
+			return 0, fmt.Errorf("Überlauf: Summe überschreitet MaxInt64")
+		}
+		total += product
+	}
+
+	// Unterlauf defensiv prüfen
+	if total < 0 {
+		return 0, fmt.Errorf("Unterlauf: Ergebnis zu klein")
 	}
 
 	return total, nil
