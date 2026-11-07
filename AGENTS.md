@@ -19,6 +19,6 @@ Test
 
 ## Projekt
 
-- Sprache und Stack: noch festlegen (Aufgabe des ersten Issues)
-- Tests ausführen: noch festlegen
-- Linter: noch festlegen
+- Sprache und Stack: Go 1.24+ (kein Build-System nötig, kompiliert zu einer Binary)
+- Tests ausführen: `go test ./...`
+- Linter: `gofmt -l .` – Änderungen mit `gofmt -w .` zurückgeschrieben
