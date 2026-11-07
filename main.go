@@ -6,13 +6,21 @@ import (
 	"fmt"
 	"regexp"
 	"strconv"
+	"strings"
 )
+
+var whitespaceRe = regexp.MustCompile(`([dhms])\s+(\d)`)
 
 var durationRe = regexp.MustCompile(`(\d+)([dhms])`)
 
 // ParseDuration parses a duration string like "1h30m" or "2d" and returns the
 // total number of seconds. Supported units: d (86400), h (3600), m (60), s (1).
 func ParseDuration(s string) (int64, error) {
+	s = strings.TrimSpace(s)
+	// Entferne nur Whitespace nach einer Einheit und vor der nächsten Zahl.
+	// Andere Whitespaces (z.B. "1 h") bleiben erhalten und werden von der Gap-Prüfung erkannt.
+	s = whitespaceRe.ReplaceAllString(s, "$1$2")
+
 	if s == "" {
 		return 0, errors.New("leere Eingabe")
 	}
