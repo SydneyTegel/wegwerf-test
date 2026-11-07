@@ -41,6 +41,14 @@ func TestParseDuration(t *testing.T) {
 		{name: "Lücke innerhalb Zahl", input: "1 0m", wantErr: true},
 		{name: "doppelte Einheit mit Lücke", input: "1h 2h", wantErr: true},
 		{name: "nur Leerzeichen", input: "   ", wantErr: true},
+
+		// Überlauf — ungültig
+		{name: "Überlauf Einzelwert d (Issue #9)", input: "106751991167301d", wantErr: true},
+		{name: "Überlauf Einzelwert 999T d (Issue #9)", input: "999999999999999d", wantErr: true},
+		{name: "Überlauf Summe h+m (Issue #9)", input: "2562047788015215h31m", wantErr: true},
+
+		// Grenzwert knapp unter MaxInt64
+		{name: "MaxInt64/86400 Tage (knapp drunter)", input: "106751991167300d", want: 9223372036854720000},
 	}
 
 	for _, tt := range tests {
