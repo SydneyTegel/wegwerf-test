@@ -40,6 +40,7 @@ func TestParseDuration(t *testing.T) {
 		{name: "Lücke Zahl zu Einheit", input: "1 h", wantErr: true},
 		{name: "Lücke innerhalb Zahl", input: "1 0m", wantErr: true},
 		{name: "doppelte Einheit mit Lücke", input: "1h 2h", wantErr: true},
+		{name: "nur Leerzeichen", input: "   ", wantErr: true},
 	}
 
 	for _, tt := range tests {
