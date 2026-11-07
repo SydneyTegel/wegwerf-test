@@ -8,6 +8,7 @@ Dieses Projekt wird mit Agenten in einer Sandbox entwickelt. Die Regeln stehen i
 
 - Änderungen laufen über Pull Requests, `main` ist geschützt.
 - Ein Mensch liest und versteht jeden Pull Request, bevor er gemergt wird.
+- Der Dauer-Parser (Dauerstrings wie "1h30m" → Sekunden) lebt in `duration.go`, die CLI-Einträge in `main.go`.
 
 ## Lizenz
 

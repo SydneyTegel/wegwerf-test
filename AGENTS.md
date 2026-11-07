@@ -20,5 +20,6 @@ Test
 ## Projekt
 
 - Sprache und Stack: Go 1.24+ (kein Build-System nötig, kompiliert zu einer Binary)
+- Datei-Struktur: `main.go` enthält `Hello()` und `main()`, der Dauer-Parser mit Tests lebt in `duration.go` / `duration_test.go`.
 - Tests ausführen: `go test ./...`
 - Linter: `gofmt -l .` – Änderungen mit `gofmt -w .` zurückgeschrieben
